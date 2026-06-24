@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f6f2ee;
+            color: #181313;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 210px;
+            min-height: 100vh;
+            background: #202020;
+            padding: 24px 20px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 18px;
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .sidebar a:hover {
+            background: #3a3a3a;
+        }
+
+        main {
+            flex: 1;
+            padding: 32px;
+        }
+
+        .box {
+            max-width: 420px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
+            padding: 24px;
+        }
+
+        h1 {
+            margin-bottom: 12px;
+        }
+
+        p {
+            color: #5b514d;
+            margin-bottom: 18px;
+        }
+
+        button {
+            border: 0;
+            border-radius: 6px;
+            background: #681a1a;
+            color: white;
+            padding: 10px 14px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                display: block;
+            }
+
+            .sidebar {
+                width: 100%;
+                min-height: auto;
+                display: flex;
+                gap: 8px;
+                overflow-x: auto;
+            }
+
+            .sidebar a {
+                margin-bottom: 0;
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <a href="index.html">Home</a>
+        <a href="history.html">History</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="Premium.html">Premium</a>
+        <a href="upload.html">Upload</a>
+        <a href="../login.html">Login</a>
+    </aside>
+
+    <main>
+        <section class="box">
+            <h1>User Profile</h1>
+            <p id="userEmail">No user logged in</p>
+            <button onclick="logout()">Logout</button>
+        </section>
+    </main>
+
+    <script>
+        const currentUser = localStorage.getItem("currentUser");
+
+        if (currentUser) {
+            document.getElementById("userEmail").innerText = currentUser;
+        }
+
+        function logout() {
+            localStorage.removeItem("currentUser");
+            alert("Logged out successfully");
+            window.location.href = "../login.html";
+        }
+    </script>
+</body>
+</html>

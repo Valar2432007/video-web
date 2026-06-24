@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Stream</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f6f2ee;
+            color: #1c1715;
+        }
+
+        header {
+            background: #681a1a;
+            color: white;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        header h1 {
+            font-size: 24px;
+        }
+
+        nav {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        nav a,
+        .card button {
+            border: 0;
+            background: #5c1515;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        nav a {
+            display: inline-block;
+            padding: 10px 12px;
+            background: #ffffff;
+            color: #681a1a;
+            font-weight: 700;
+        }
+
+        #search {
+            width: min(100%, 280px);
+            padding: 10px;
+            border: 0;
+            border-radius: 6px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
+        }
+
+        .card img {
+            width: 100%;
+            display: block;
+        }
+
+        .card-content {
+            padding: 14px;
+        }
+
+        .card h2 {
+            font-size: 19px;
+            margin-bottom: 6px;
+        }
+
+        .card p {
+            color: #625753;
+            margin-bottom: 12px;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .card button {
+            padding: 9px 12px;
+        }
+
+        .comment-box {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .comment-box input {
+            min-width: 0;
+            flex: 1;
+            padding: 9px;
+            border: 1px solid #cfc5c0;
+            border-radius: 6px;
+        }
+
+        .comments {
+            margin-top: 10px;
+            padding-left: 18px;
+            color: #332927;
+        }
+
+        @media (max-width: 620px) {
+            header {
+                align-items: stretch;
+            }
+
+            nav,
+            #search {
+                width: 100%;
+            }
+
+            nav a {
+                flex: 1;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Video Stream</h1>
+        <nav>
+            <a href="profile.html">Profile</a>
+            <a href="history.html">History</a>
+            <a href="downloads.html">Downloads</a>
+            <a href="Premium.html">Premium</a>
+            <a href="upload.html">Upload</a>
+            <a href="subscribe.html">Subscribe</a>
+        </nav>
+        <input type="text" id="search" placeholder="Search videos..." onkeyup="searchVideo()">
+    </header>
+
+    <main class="container" id="videoContainer">
+        <section class="card" data-title="JavaScript Tutorial">
+            <img src="https://picsum.photos/300/180?1" alt="JavaScript Tutorial thumbnail">
+            <div class="card-content">
+                <h2>JavaScript Tutorial</h2>
+                <p>Programming Channel</p>
+                <div class="card-actions">
+                    <button onclick="watchVideo('JavaScript Tutorial')">Watch</button>
+                    <button onclick="downloadVideo('JavaScript Tutorial')">Download</button>
+                    <button onclick="likeVideo(this)">Like <span>0</span></button>
+                </div>
+                <div class="comment-box">
+                    <input type="text" placeholder="Add comment">
+                    <button onclick="addComment(this)">Add</button>
+                </div>
+                <ul class="comments"></ul>
+            </div>
+        </section>
+
+        <section class="card" data-title="React Tutorial">
+            <img src="https://picsum.photos/300/180?2" alt="React Tutorial thumbnail">
+            <div class="card-content">
+                <h2>React Tutorial</h2>
+                <p>Code Academy</p>
+                <div class="card-actions">
+                    <button onclick="watchVideo('React Tutorial')">Watch</button>
+                    <button onclick="downloadVideo('React Tutorial')">Download</button>
+                    <button onclick="likeVideo(this)">Like <span>0</span></button>
+                </div>
+                <div class="comment-box">
+                    <input type="text" placeholder="Add comment">
+                    <button onclick="addComment(this)">Add</button>
+                </div>
+                <ul class="comments"></ul>
+            </div>
+        </section>
+
+        <section class="card" data-title="NodeJS Course">
+            <img src="https://picsum.photos/300/180?3" alt="NodeJS Course thumbnail">
+            <div class="card-content">
+                <h2>NodeJS Course</h2>
+                <p>Backend Master</p>
+                <div class="card-actions">
+                    <button onclick="watchVideo('NodeJS Course')">Watch</button>
+                    <button onclick="downloadVideo('NodeJS Course')">Download</button>
+                    <button onclick="likeVideo(this)">Like <span>0</span></button>
+                </div>
+                <div class="comment-box">
+                    <input type="text" placeholder="Add comment">
+                    <button onclick="addComment(this)">Add</button>
+                </div>
+                <ul class="comments"></ul>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", loadUploadedVideos);
+
+        function getList(key) {
+            return JSON.parse(localStorage.getItem(key)) || [];
+        }
+
+        function saveList(key, list) {
+            localStorage.setItem(key, JSON.stringify(list));
+        }
+
+        function searchVideo() {
+            const input = document.getElementById("search").value.toLowerCase();
+            const cards = document.querySelectorAll(".card");
+
+            cards.forEach(card => {
+                const title = card.dataset.title.toLowerCase();
+                card.style.display = title.includes(input) ? "block" : "none";
+            });
+        }
+
+        function watchVideo(title) {
+            const history = getList("history");
+            history.push(title);
+            saveList("history", history);
+            alert(title + " added to watch history");
+        }
+
+        function downloadVideo(title) {
+            const premium = localStorage.getItem("premium");
+
+            if (premium !== "true") {
+                alert("Download available only for Premium Users");
+                window.location.href = "Premium.html";
+                return;
+            }
+
+            const downloads = getList("downloads");
+            downloads.push(title);
+            saveList("downloads", downloads);
+            alert("Downloaded Successfully");
+        }
+
+        function likeVideo(button) {
+            const count = button.querySelector("span");
+            count.innerText = Number(count.innerText) + 1;
+        }
+
+        function addComment(button) {
+            const card = button.closest(".card");
+            const input = card.querySelector(".comment-box input");
+            const comment = input.value.trim();
+
+            if (comment === "") {
+                alert("Enter a comment");
+                return;
+            }
+
+            const li = document.createElement("li");
+            li.innerText = comment;
+            card.querySelector(".comments").appendChild(li);
+            input.value = "";
+        }
+
+        function loadUploadedVideos() {
+            const uploads = getList("uploads");
+            const container = document.getElementById("videoContainer");
+
+            uploads.forEach(video => {
+                const card = document.createElement("section");
+                card.className = "card";
+                card.dataset.title = video.title;
+
+                const img = document.createElement("img");
+                img.src = "https://picsum.photos/300/180?uploaded-" + encodeURIComponent(video.title);
+                img.alt = video.title + " thumbnail";
+
+                const content = document.createElement("div");
+                content.className = "card-content";
+
+                const title = document.createElement("h2");
+                title.innerText = video.title;
+
+                const channel = document.createElement("p");
+                channel.innerText = "Uploaded Video";
+
+                const actions = document.createElement("div");
+                actions.className = "card-actions";
+
+                const watchButton = document.createElement("button");
+                watchButton.innerText = "Watch";
+                watchButton.onclick = () => watchVideo(video.title);
+
+                const downloadButton = document.createElement("button");
+                downloadButton.innerText = "Download";
+                downloadButton.onclick = () => downloadVideo(video.title);
+
+                const likeButton = document.createElement("button");
+                likeButton.innerHTML = "Like <span>0</span>";
+                likeButton.onclick = () => likeVideo(likeButton);
+
+                const commentBox = document.createElement("div");
+                commentBox.className = "comment-box";
+
+                const input = document.createElement("input");
+                input.type = "text";
+                input.placeholder = "Add comment";
+
+                const addButton = document.createElement("button");
+                addButton.innerText = "Add";
+                addButton.onclick = () => addComment(addButton);
+
+                const comments = document.createElement("ul");
+                comments.className = "comments";
+
+                actions.append(watchButton, downloadButton, likeButton);
+                commentBox.append(input, addButton);
+                content.append(title, channel, actions, commentBox, comments);
+                card.append(img, content);
+                container.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>

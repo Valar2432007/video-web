@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f6f2ee;
+            color: #141110;
+            padding: 28px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .plans {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
+            padding: 22px;
+            text-align: center;
+        }
+
+        .card h2 {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .price {
+            color: #681a1a;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        button,
+        .back-link {
+            border: 0;
+            border-radius: 6px;
+            background: #681a1a;
+            color: white;
+            cursor: pointer;
+            padding: 10px 14px;
+            text-decoration: none;
+        }
+
+        .back-wrap {
+            text-align: center;
+            margin-top: 24px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Video Stream Premium</h1>
+
+    <main class="plans">
+        <section class="card">
+            <h2>Monthly</h2>
+            <p class="price">Rs. 99</p>
+            <button onclick="buyPremium()">Buy Premium</button>
+        </section>
+
+        <section class="card">
+            <h2>3 Months</h2>
+            <p class="price">Rs. 599</p>
+            <button onclick="buyPremium()">Buy Premium</button>
+        </section>
+
+        <section class="card">
+            <h2>1 Year</h2>
+            <p class="price">Rs. 999</p>
+            <button onclick="buyPremium()">Buy Premium</button>
+        </section>
+    </main>
+
+    <div class="back-wrap">
+        <a class="back-link" href="index.html">Back Home</a>
+    </div>
+
+    <script>
+        function buyPremium() {
+            localStorage.setItem("premium", "true");
+            alert("Premium Activated");
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>

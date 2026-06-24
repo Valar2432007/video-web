@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>History</title>
+</head>
+<body>
+
+<h1>Watch History</h1>
+
+<ul id="historyList"></ul>
+
+<a href="index.html">Back Home</a>
+<style>
+    h1{
+        text-align: center;
+    }
+    body{
+        background-color: rgb(174, 77, 77);
+    }
+    a{
+        color: aliceblue;
+        background-color: burlywood;
+        padding: 20px;
+    }
+    ul{
+        text-align: center;
+    }
+
+</style>
+
+<script>
+let history =
+JSON.parse(localStorage.getItem("history")) || [];
+
+let html = "";
+
+history.forEach(item=>{
+html += `<li>${item}</li>`;
+});
+
+document.getElementById("historyList").innerHTML = html;
+</script>
+
+</body>
+</html>

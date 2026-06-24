@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Downloads</title>
+</head>
+<body>
+
+<h1>Downloaded Videos</h1>
+
+<ul id="downloadList"></ul>
+
+<a href="index.html">Back Home</a>
+
+<script>
+let downloads =
+JSON.parse(localStorage.getItem("downloads")) || [];
+
+let html = "";
+
+downloads.forEach(item=>{
+html += `<li>${item}</li>`;
+});
+
+document.getElementById("downloadList").innerHTML = html;
+</script>
+<style>
+    #downloadList{
+        color: rgb(12, 11, 11);
+        background-color: bisque;
+    }
+    h1{
+        background-color: blanchedalmond;
+        color: black;
+        text-align: center;
+    }
+    a{
+        color: aliceblue;
+        background-color: brown;
+    }
+    body{
+        background-color: burlywood;
+    }
+
+</style>
+
+</body>
+</html>

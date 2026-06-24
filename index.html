@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    
+</head>
+<body>
+
+<div class="box">
+    <h1>Register</h1>
+
+    <input type="email" id="regEmail" placeholder="Email">
+
+    <input type="password" id="regPassword" placeholder="Password">
+
+    <button onclick="register()">Register</button>
+
+    <p id="regMsg"></p>
+
+    <a href="login.html">Already have an account? Login</a>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
+<style>
+body{
+    margin:0;
+    padding:0;
+    font-family:Arial, sans-serif;
+    background:#361010;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.box{
+    background:rgb(189, 187, 187);
+    padding:30px;
+    border-radius:10px;
+    width:300px;
+    text-align:center;
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+input{
+    width:90%;
+    padding:10px;
+    margin:10px 0;
+}
+
+button{
+    width:100%;
+    padding:10px;
+    background:blue;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+button:hover{
+    background:darkblue;
+}
+
+#message{
+    margin-top:10px;
+    font-weight:bold;
+}
+</style>
+</html>

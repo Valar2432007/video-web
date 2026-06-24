@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Downloads</title>
+</head>
+<body>
+
+<h1>Downloaded Videos</h1>
+
+<ul id="downloadList"></ul>
+
+<script>
+
+let downloads =
+JSON.parse(
+localStorage.getItem("downloads")
+) || [];
+
+let list =
+document.getElementById("downloadList");
+
+downloads.forEach(video => {
+
+    let li =
+    document.createElement("li");
+
+    li.innerText = video;
+
+    list.appendChild(li);
+
+});
+
+</script>
+
+</body>
+</html>

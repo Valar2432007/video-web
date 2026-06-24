@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+
+<div class="box">
+    <h1>Welcome</h1>
+
+    <p id="userEmail"></p>
+
+    <button onclick="logout()">Logout</button>
+    <br><br>
+    <button onclick="goHome()">Home</button>
+    
+</div>
+
+<script>
+
+let user = localStorage.getItem("currentUser");
+
+if(!user){
+    window.location.href = "login.html";
+}
+
+document.getElementById("userEmail").innerHTML =
+"Logged in as: " + user;
+
+function logout(){
+    localStorage.removeItem("currentUser");
+    window.location.href = "login.html";
+}
+function goHome() {
+    window.location.href = "video/index.html";
+}
+</script>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:#f0f2f5;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.box{
+    width:350px;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    text-align:center;
+    box-shadow:0 0 15px rgba(0,0,0,0.2);
+}
+
+input{
+    width:90%;
+    padding:12px;
+    margin:10px 0;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    background:#382017;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0d65d9;
+}
+
+a{
+    display:block;
+    margin-top:15px;
+}
+
+p{
+    color:rgb(84, 23, 23);
+}
+.go{
+    color: blueviolet;
+}
+
+</style>
+</html>
